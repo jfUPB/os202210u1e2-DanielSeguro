@@ -7,13 +7,11 @@
 int main(int argc, char **argv)
 {
 
-    Impresora *Impresora = Impresora_create("Impr");
+    Impresora *Impr = Impresora_create("Impr");
     Computador *Comput = Com_create("Com");
 
-
-    Comput->registerObserver(Comput, Impresora);
-    Comput->imprimir(Comput);
-
-    Impresora->destroy(Impresora);
+    Comput->imprimir(Comput, Impr);
+   
+    Impr->destroy(Impr);
     Comput->destroy(Comput);
 }

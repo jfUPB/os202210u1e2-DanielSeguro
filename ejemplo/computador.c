@@ -10,11 +10,10 @@ static int _unregisterObserver(Computador *this, Observer *observer)
 	return this->observ->unregisterObserver(this->observ, observer);
 }
 
-static void _imprimir(Computador *this)
+static void _imprimir(Computador * this, Impresora* imp)
 {
-	printf("%s\n", "Imprimiendo");
-	this->event = IMPRESION;
-	this->observ->notifyObservers(this->observ);
+	this->registerObserver(this, imp->observer);
+	printf("Imprimiendo en %s\n", imp->name);
 }
 
 static void _destroy(Computador *this)

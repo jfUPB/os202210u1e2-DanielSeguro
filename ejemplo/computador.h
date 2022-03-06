@@ -16,7 +16,7 @@ typedef struct __computador
     void (*destroy)(struct __computador *);
     CompEvent event;
     CompEvent (*getEvent)(struct __computador *);
-    void (*imprimir)(struct __computador *);
+    void (*imprimir)(struct __computador *, Impresora*);
     Observable *observ;
     int (*registerObserver)(struct __computador *, Observer *);
     int (*unregisterObserver)(struct __computador *, Observer *);
