@@ -7,7 +7,7 @@
 int main(int argc, char **argv)
 {
 
-
+Impresora* prueba = IMP_create("Error404");
 
 
  

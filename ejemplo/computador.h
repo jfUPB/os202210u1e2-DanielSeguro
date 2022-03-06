@@ -5,13 +5,23 @@
 #include "../codigo/observer.h"
 #include "impresora.h"
 
+typedef enum __comp_event
+{
+    IDK
+} CompEvent;
+
 typedef struct __computador
 {
-    char *nombre;
+    char *name;
+    CompEvent event;
     Observer *observer;
 
 } Computador;
 
-
+void Add(Computador *this, Observer *observer);
+void Notify(Computador *);
+void Destructor(Computador *);
+Computador *COMP_new(char *);
+CompEvent getEvent(Computador *this);
 
 #endif
