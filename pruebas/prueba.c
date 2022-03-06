@@ -1,16 +1,19 @@
 #include <stdio.h>
-#include "../codigo/observable.h"
-#include "../codigo/observer.h"
 #include "../ejemplo/computador.h"
 #include "../ejemplo/impresora.h"
+#include "../codigo/observable.h"
+#include "../codigo/observer.h"
 
 int main(int argc, char **argv)
 {
 
-Impresora* prueba = IMP_create("Error404");
+    Impresora *Impresora = Impresora_create("Impr");
+    Computador *Comput = Com_create("Com");
 
 
- 
+    Comput->registerObserver(Comput, Impresora);
+    Comput->imprimir(Comput);
 
-    return 0;
+    Impresora->destroy(Impresora);
+    Comput->destroy(Comput);
 }

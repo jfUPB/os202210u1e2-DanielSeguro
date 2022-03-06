@@ -1,32 +1,49 @@
 #include "computador.h"
-static void Destructor(Computador *this)
-{
-    this->observer->destroy(this->observer);
 
-    if (this != NULL)
-    {
-        free(this);
-        this = NULL;
-    }
+static int _registerObserver(Computador *this, Observer *observer)
+{
+return this->observ->registerObserver(this->observ, observer);
 }
 
-static void Add(Computador *this, Impresora *imp)
+static int _unregisterObserver(Computador *this, Observer *observer)
 {
-    imp->registerObserver(imp, this->observer);
+	return this->observ->unregisterObserver(this->observ, observer);
 }
 
-static void Notify(Computador *this)
+static void _imprimir(Computador *this)
 {
-    printf("Connection done.\n");
+	printf("%s\n", "Imprimiendo");
+	this->event = IMPRESION;
+	this->observ->notifyObservers(this->observ);
 }
-Computador *COM_create(char *nombre)
+
+static void _destroy(Computador *this)
 {
-    Computador *this = (Computador *)malloc(sizeof(*this));
-    this->name = nombre;
-    this->observer = observerNew(this, (void (*)(void *, int, void *))Notify);
-    return this;
+	this->observ->destroy(this->observ);
+
+	if (NULL != this)
+	{
+		free(this);
+		this = NULL;
+	}
 }
-CompEvent getEvent(Computador *this)
+
+static CompEvent _getEvent(Computador *this)
 {
-    return this->event;
+	return this->event;
+}
+
+Computador *Comp_Creado(char *name)
+{
+	Computador *this = (Computador *)malloc(sizeof(*this));
+	this->name = name;
+	this->destroy = _destroy;
+	this->getEvent = _getEvent;
+	this->imprimir = _imprimir;
+
+	this->observ = subjectNew(this, 1);
+	this->registerObserver = _registerObserver;
+	this->unregisterObserver = _unregisterObserver;
+
+	return this;
 }

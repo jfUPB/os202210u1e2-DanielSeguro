@@ -1,30 +1,29 @@
 #include "impresora.h"
+#include "computador.h"
 
-
-static void _error(Impresora *this, char *error)
+static void _destroy(Impresora* this)
 {
-    this->event = IMPRESORA_ERROR;
-    this->error = error;
-    this->observable->notifyObservers(this->observable);
+	this->observer->destroy(this->observer);
+
+	if (this != NULL){
+		free(this);
+		this = NULL;
+	}
+}
+/**
+ * Método del observador llamado a la recepción de un evento entrante
+ */
+static void _notify(Impresora*this, int numero, void* subject) {
+	_handleEvent(this, (Computador*) subject);
 }
 
-static int _registerObserver(Impresora *this, Observer *observer)
+Impresora* Impr_create(char* name)
 {
-    return this->observable->registerObserver(this->observable, observer);
-}
+	Impresora*this = (Impresora*) malloc(sizeof(*this));
 
-static int _unregisterObserver(Impresora *this, Observer *observer)
-{
-    return this->observable->unregisterObserver(this->observable, observer);
-}
+	this->name = name;
+	this->destroy = _destroy;
+	this->observer = observerNew(this, (void (*)(void*, int, void*))_notify);
 
-Impresora *IMP_create(char *error)
-{
-    Impresora *this = (Impresora *)malloc(sizeof(*this));
-    this->error = error;
-    this->observable = observable_new(this, 1);
-    this->registerObserver = _registerObserver;
-    this->unregisterObserver = _unregisterObserver;
-
-    return this;
+	return this;
 }

@@ -18,6 +18,6 @@
 	} Observable;
 
 	
-	Observable * subjectNew(void*, int);
+	Observable * observabletNew(void*, int);
 
 #endif
