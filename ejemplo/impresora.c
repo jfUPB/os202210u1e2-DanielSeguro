@@ -18,21 +18,10 @@ static int _unregisterObserver(Impresora *this, Observer *observer)
     return this->observable->unregisterObserver(this->observable, observer);
 }
 
-static void _destroy(Impresora *this)
-{
-    this->observable->destroy(this->observable);
-
-    if (NULL != this)
-    {
-        free(this);
-        this = NULL;
-    }
-}
-
-Impresora *IMP_create(char *name)
+Impresora *IMP_create(char *error)
 {
     Impresora *this = (Impresora *)malloc(sizeof(*this));
-
+    this->error = error;
     this->observable = observable_new(this, 1);
     this->registerObserver = _registerObserver;
     this->unregisterObserver = _unregisterObserver;

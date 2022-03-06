@@ -13,7 +13,7 @@
 		Observer * observers[MAX_OBSERVERS];
 		int (*registerObserver)(struct __observable*, Observer*);
 		int (*unregisterObserver)(struct __observable *, Observer*);
-		void (*notifyObservers)(struct __subject*);
+		void (*notifyObservers)(struct __observable*);
         
 	} Observable;
 

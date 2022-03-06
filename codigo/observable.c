@@ -1,27 +1,12 @@
-/*
-
- * observable.c
- *
- *  Created on: 11 oct. 2012
- *      Author: Alexandre Melard
- */
 #include "common.h"
 #include "observable.h"
 
-/**
- * Destructor for Observable object.
- * use to clean up the memory
- * @param this
- */
 static void _destroy(Observable* this) {
 	if (NULL != this) {
 		free(this);
 		this = NULL;
 	}
 }
-
-
-
 
 static int _registerObserver(Observable* this, Observer* observer)
 {

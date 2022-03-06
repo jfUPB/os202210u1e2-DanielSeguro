@@ -1,15 +1,17 @@
-#ifndef DOG_H
-	#define DOG_H
- 	#include <stdio.h>
-	#include <stdlib.h>
-	#include "../codigo/observer.h"
-	#include "impresora.h"
+#ifndef COMPUTADOR_H
+#define COMPUTADOR_H
+#include <stdio.h>
+#include <stdlib.h>
+#include "../codigo/observer.h"
+#include "impresora.h"
 
-	typedef struct __computador
-	{
-		Observer* observer;
-	} Computador;
+typedef struct __computador
+{
+    char *nombre;
+    Observer *observer;
 
-	Computador* COM_create(char *);
+} Computador;
+
+
 
 #endif
