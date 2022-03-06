@@ -1,41 +1,32 @@
 #include "computador.h"
-static void _destroy(Computador* this)
+static void Destructor(Computador *this)
 {
-	this->observer->destroy(this->observer);
+    this->observer->destroy(this->observer);
 
-	if (this != NULL){
-		free(this);
-		this = NULL;
-	}
+    if (this != NULL)
+    {
+        free(this);
+        this = NULL;
+    }
 }
 
-static void _handle_printer_event(Computador* this , Impresora* printer) {
-	ImpresoraEvent event = printer->getEvent(printer);
-	switch (event) {
-	case IMPRESORA_ERROR:
-		printf("[ERR] [COMPUTER] received an error from printer [%s]\n", printer->getError(printer));
-		break;
-	default:
-		printf("[WAR] [COMPUTER] received an unknown event from printer [%d]\n", event);
-		break;
-	}
-}
-static void _ErrorImp(Computador * this, Impresora* imp)
+static void Add(Computador *this, Impresora *imp)
 {
-	imp->registerObserver(imp, this->observer);
-	printf("Error", imp->error);
+    imp->registerObserver(imp, this->observer);
 }
 
-static void _notify(Computador* this) {
-	 printf("Connection done.\n");
-}
-Computador *COM_create(char* nombre)
+static void Notify(Computador *this)
 {
-    
-	Computador* this = (Computador*) malloc(sizeof(*this));
-    this->nombre = nombre;
-	this->observer = observerNew(this, (void (*)(void*, int, void*))_notify);
-
-	return this;
+    printf("Connection done.\n");
 }
-
+Computador *COM_create(char *nombre)
+{
+    Computador *this = (Computador *)malloc(sizeof(*this));
+    this->name = nombre;
+    this->observer = observerNew(this, (void (*)(void *, int, void *))Notify);
+    return this;
+}
+CompEvent getEvent(Computador *this)
+{
+    return this->event;
+}

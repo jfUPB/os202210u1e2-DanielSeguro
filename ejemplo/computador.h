@@ -18,7 +18,7 @@ typedef struct __computador
 
 } Computador;
 
-void Add(Computador *this, Observer *observer);
+void Add(Computador *this, Impresora *imp);
 void Notify(Computador *);
 void Destructor(Computador *);
 Computador *COMP_new(char *);
