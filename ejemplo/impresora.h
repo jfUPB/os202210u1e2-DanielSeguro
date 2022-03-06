@@ -24,5 +24,5 @@ int (*registerObserver)(struct __impresora *, Observer *);
 int (*unregisterObserver)(struct __impresora *, Observer *);
 } Impresora;
 
-Impresora* Imp_create(char *)
+Impresora* Imp_create(char *);
 #endif

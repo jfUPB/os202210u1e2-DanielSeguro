@@ -1,4 +1,6 @@
 #include "impresora.h"
+
+
 static void _error(Impresora *this, char *error)
 {
     this->event = IMPRESORA_ERROR;
